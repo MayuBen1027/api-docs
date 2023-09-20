@@ -18,14 +18,16 @@ function useInitialValue(value, condition = true) {
 }
 
 function TopLevelNavItem({ href, children }) {
+  const isInternal = href && !href.startsWith('https:')
+  const LinkComponent = isInternal ? Link : 'a'
   return (
     <li className="md:hidden">
-      <Link
+      <LinkComponent
         href={href}
         className="block py-1 text-sm text-zinc-600 transition hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white"
       >
         {children}
-      </Link>
+      </LinkComponent>
     </li>
   )
 }
@@ -216,6 +218,10 @@ export const navigation = [
         title: 'Create a blog using Astro',
         href: '/guides/create-a-blog-using-astro',
       },
+      {
+        title: 'Use ES modules in your plugin',
+        href: '/guides/es-modules',
+      },
     ],
   },
   {
@@ -226,6 +232,7 @@ export const navigation = [
       { title: 'Tags', href: '/data-access/tags' },
       { title: 'Files', href: '/data-access/files' },
       { title: 'Utilities', href: '/data-access/utils' },
+      { title: 'Events', href: '/data-access/events' },
       { title: 'Local HTTP Server', href: '/data-access/local-http-server' },
     ],
   },
@@ -233,6 +240,10 @@ export const navigation = [
     title: 'Core Modules',
     links: [
       { title: 'Command Registry', href: '/modules/command-registry' },
+      { title: 'Component Manager', href: '/modules/component-manager' },
+      { title: 'Data Store', href: '/modules/data-store' },
+      { title: 'Inkdrop Application', href: '/modules/inkdrop-application' },
+      { title: 'Layout Manager', href: '/modules/layout-manager' },
       { title: 'Markdown Renderer', href: '/modules/markdown-renderer' },
     ],
   },
@@ -240,7 +251,18 @@ export const navigation = [
     title: 'App States',
     links: [
       { title: 'Notebooks', href: '/states/books' },
+      { title: 'Database', href: '/states/db' },
+      { title: 'Editing note', href: '/states/editing-note' },
+      { title: 'Editor', href: '/states/editor' },
       { title: 'Preview', href: '/states/preview' },
+    ],
+  },
+  {
+    title: 'Event Subscription (event-kit)',
+    links: [
+      { title: 'Disposable', href: '/event-subscription/disposable' },
+      { title: 'Composite Disposable', href: '/event-subscription/composite-disposable' },
+      { title: 'Emitter', href: '/event-subscription/emitter' },
     ],
   },
 ]
@@ -251,7 +273,7 @@ export function Navigation(props) {
       <ul role="list">
         <TopLevelNavItem href="/">API</TopLevelNavItem>
         <TopLevelNavItem href="https://docs.inkdrop.app/">
-          Documentation
+          User Manual
         </TopLevelNavItem>
         <TopLevelNavItem href="https://forum.inkdrop.app/">
           Support
